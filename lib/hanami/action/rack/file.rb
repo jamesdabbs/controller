@@ -1,4 +1,5 @@
 require 'rack/file'
+require 'rack/request'
 
 module Hanami
   module Action
@@ -22,8 +23,7 @@ module Hanami
         # @since 0.4.3
         # @api private
         def call(env)
-          @file.path = @path.to_s
-          @file.serving(env)
+          @file.serving(::Rack::Request.new(env), @path.to_s)
         rescue Errno::ENOENT
           [404, {}, nil]
         end

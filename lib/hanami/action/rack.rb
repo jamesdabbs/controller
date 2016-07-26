@@ -245,7 +245,7 @@ module Hanami
       #     end
       #   end
       def body=(body)
-        body   = Array(body) unless body.respond_to?(:each)
+        body   = Array(body) unless body.respond_to?(:each) || body.is_a?(::Rack::File)
         @_body = body
       end
 
